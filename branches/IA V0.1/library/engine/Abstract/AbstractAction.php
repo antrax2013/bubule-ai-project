@@ -12,7 +12,7 @@ abstract class AAction
      * Nom de l'action
      * @var string
      */
-    protected $_name;
+    protected  $_name;
 
     protected $_active;
 
@@ -27,7 +27,7 @@ abstract class AAction
     /**
      * Méthode d'execution de l'action
      */
-    abstract public function Run(&$a_proprietes);
+    abstract public function Run(&$a_energie, $a_energieMax);
 
     /**
      * Accesseur public en lecture sur les champs privés

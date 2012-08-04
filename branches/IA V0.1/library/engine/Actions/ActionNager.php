@@ -1,5 +1,5 @@
 <?php
-    require_once "Abstract/AbstractAction.php";
+    require_once "engine/Abstract/AbstractAction.php";
 
 
 /**
@@ -8,7 +8,7 @@
  * @category Engine
  * @author Cyril Cophignon
  */
-class ActionNage extends AAction
+class ActionNager extends AAction
 {
     /**
      * Constructeur par défaut
@@ -21,15 +21,17 @@ class ActionNage extends AAction
     /**
      * Méthode d'execution de l'action
      */
-    public function Run(&$a_proprietes)
+    public function Run(&$a_energie, $a_energieMax)
     {
-        if($a_proprietes['energie'] > 0)
+        if($a_energie > 0)
         {
-            $a_proprietes['energie'] -= 1;
+            $a_energie -= 1;
+            echo "Je nage.<br /> ";
         }
-        if($a_proprietes['energie'] == 0)
+        if($a_energie == 0)
         {
             $this->_active = false;
+            echo "Je suis fatigué.<br /> ";
         }
     }
 };

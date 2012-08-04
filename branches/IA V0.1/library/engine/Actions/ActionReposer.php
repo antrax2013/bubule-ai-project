@@ -1,5 +1,5 @@
 <?php
-    require_once "Abstract/AbstractAction.php";
+    require_once "engine/Abstract/AbstractAction.php";
 
 
 /**
@@ -21,16 +21,18 @@ class ActionReposer extends AAction
     /**
      * Méthode d'execution de l'action
      */
-    public function Run(&$a_proprietes)
+    public function Run(&$a_energie, $a_energieMax)
     {
-        if($a_proprietes['energie'] < $a_proprietes['energieMax'])
+        if($a_energie < $a_energieMax)
         {
-            $a_proprietes['energie'] += 1;
+            $a_energie += 1;
+            echo "Je me repose.<br /> ";
         }
 
-        if($a_proprietes['energie'] == $a_proprietes['energieMax'])
+        if($a_energie == $a_energieMax)
         {
             $this->_active = false;
+            echo "Je suis en forme.<br /> ";
         }
     }
 };
