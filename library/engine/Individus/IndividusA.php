@@ -1,7 +1,4 @@
 <?php
-    require_once "Abstract/AbstractAction.php";
-
-
 /**
  * Class definissant un individus de type A : individus avec 2 actions et 1 besoin
  * @class ActionNage
@@ -32,22 +29,23 @@ class IndividusA
      * Tableau contenant les actions
      * @var AbastractAction[]
      */
-    private $_actions;
+    public $_actions;
 
     /**
      * Tableau contenant les besoins
      * @var AbastractNeed[]
      */
-    private $_needs;
+    public $_needs;
 
     /**
      * Constructeur par défaut
      */
-    public function __construct($a_energieMax)
+    public function __construct($a_name, $a_energieMax=5)
     {
         $this->_energie = $this->_energieMax = $a_energieMax;
         $this->_needs = array();
         $this->_actions = array();
+        $this->_name = $a_name;
     }
 
     /**
@@ -70,14 +68,20 @@ class IndividusA
 
     public function Run()
     {
+        /*echo $this->_energie." ". $this->_energieMax ."<br>";
+        echo "Nager:".$this->_needs[0]->active." Reposer:". $this->_needs[1]->active ."<br>";*/
+        echo $this->_name." : ";
         for($i=0; $i < count($this->_needs) && $i < count($this->_actions) ;$i++)
         {
-            $tmp = array("energieMax" => $this->_energieMax, "energie" => $this->_energie);
-            if($this->_needs[$i]->Check($tmp))
+
+            if($this->_needs[$i]->Check($this->_energie, $this->_energieMax))
             {
-                $this->_actions[$i]->Run($tmp);
+                $this->_actions[$i]->Run($this->_energie, $this->_energieMax);
+                if($this->_needs[$i]->active) return;
             }
         }
+        echo "<br>";
+
 
     }
 };

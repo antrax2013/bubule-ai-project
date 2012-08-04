@@ -19,7 +19,7 @@ abstract class ABesoin
     /**
      * Méthode vérifiant les propriétés passées en paramètres
      */
-    abstract public function Check($a_proprietes);
+    abstract public function Check($a_energie, $a_energieMax);
 
     protected function Activer()
     {
