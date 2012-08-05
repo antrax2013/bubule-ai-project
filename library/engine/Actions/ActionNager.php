@@ -36,7 +36,7 @@ class ActionNager extends AAction
         //J'ai plus d'energie je ne peux plus nager
         if($a_param == 0)
         {
-            $this->_active = false;
+            $this->_actif = false;
         }
     }
 };

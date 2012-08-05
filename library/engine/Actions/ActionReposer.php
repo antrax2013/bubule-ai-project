@@ -35,7 +35,7 @@ class ActionReposer extends AAction
 
         if($a_energie == $a_energieMax)
         {
-            $this->_active = false;
+            $this->_actif = false;
         }
     }
 };

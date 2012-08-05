@@ -10,28 +10,31 @@
 <?PHP
 // Variables Globales
 //Les chemins sont ralatifs car definis dans le include path
+$root = "D:/Workspace/IA/IA V0.1.1/library/";
 $path_library = 'engine/';
 $path_abstract = $path_library.'Abstract/';
 $path_actions = $path_library.'Actions/';
-$path_besoins = $path_library.'Besoins/';
+$path_etats = $path_library.'Etats/';
 $path_individus = $path_library.'Individus/';
 
 //Inclusions
-require_once 'test_tools.php';
-require_once $path_individus.'IndividusA.php';
+require_once "test_tools.php";
+Init($root); //modification de l'include_path
+
+require_once $path_individus."IndividusA.php";
 require_once $path_abstract."AbstractAction.php";
-require_once $path_abstract."AbstractBesoin.php";
+require_once $path_abstract."AbstractEtat.php";
 require_once $path_actions."ActionNager.php";
 require_once $path_actions."ActionReposer.php";
-require_once $path_besoins."BesoinNager.php";
-require_once $path_besoins."BesoinReposer.php";
+require_once $path_etats."EtatNager.php";
+require_once $path_etats."EtatReposer.php";
 
 //Initialisation des variables
 $bubule = new IndividusA("Bubule", 3);
 $bubule->AddAction(new ActionNager());
 $bubule->AddAction(new ActionReposer());
-$bubule->AddBesoin(new BesoinNager(true));
-$bubule->AddBesoin(new BesoinReposer());
+$bubule->AddBesoin(new EtatNager(true));
+$bubule->AddBesoin(new EtatReposer());
 $bubule->EstPret();
 $duree = 12;
 
@@ -39,8 +42,8 @@ $bouboul = new IndividusA("Bouboul", 0);
 $bouboul->EstPret();
 /*$bubule->AddAction(new ActionNager());
 $bubule->AddAction(new ActionReposer());
-$bubule->AddBesoin(new BesoinNager(true));
-$bubule->AddBesoin(new BesoinReposer());*/
+$bubule->AddBesoin(new EtatNager(true));
+$bubule->AddBesoin(new EtatReposer());*/
 
 
 //Lancement de la simulation
