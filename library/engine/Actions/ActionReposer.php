@@ -3,10 +3,13 @@
 
 
 /**
- * Class definissant l'action de se reposer
- * @class ActionNage
- * @category Engine
- * @author Cyril Cophignon
+ * Classe ActionReposer, hérite de la classe abstraite AAction
+ * Dans cette verion reposer est l'action antagoniste de l'action nager.
+ * Aucun lien n'est fait entre les deux actions
+ * @class classe définissant l'action de se reposer.
+ * @date 03/08/2012
+ * @autor Cyril Cophignon
+ * @extends AAction
  */
 class ActionReposer extends AAction
 {
@@ -19,20 +22,20 @@ class ActionReposer extends AAction
     }
 
     /**
-     * Méthode d'execution de l'action
+     * Méthode abstraite permettant l'execution de l'action
+     * @param &int $a_param parametre de la méthode passé par référence
+     * @param int $a_paramRef parametre de référence qui sera comparé à $_param
      */
     public function Run(&$a_energie, $a_energieMax)
     {
         if($a_energie < $a_energieMax)
         {
             $a_energie += 1;
-            echo "Je me repose.<br /> ";
         }
 
         if($a_energie == $a_energieMax)
         {
             $this->_active = false;
-            echo "Je suis en forme.<br /> ";
         }
     }
 };
