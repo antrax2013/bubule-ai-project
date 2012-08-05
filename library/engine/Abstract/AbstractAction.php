@@ -1,10 +1,9 @@
 <?php
 /**
- * Class abstraite AAction
- * User: antrax
- * Date: 03/08/12
- * Time: 20:58
- * To change this template use File | Settings | File Templates.
+ * Classe abstraite AAction
+ * @class classe définissant le concept d'action
+ * @date 03/08/2012
+ * @autor Cyril Cophignon
  */
 abstract class AAction
 {
@@ -14,6 +13,10 @@ abstract class AAction
      */
     protected  $_name;
 
+    /**
+     * Booléen pour savoir si l'action est active
+     * @var bool
+     */
     protected $_active;
 
     /**
@@ -25,14 +28,16 @@ abstract class AAction
     }
 
     /**
-     * Méthode d'execution de l'action
+     * Méthode abstraite permettant l'execution de l'action
+     * @param &object $a_param parametre de la méthode passé par référence
+     * @param object $a_paramRef parametre de référence qui sera comparé à $_param
      */
-    abstract public function Run(&$a_energie, $a_energieMax);
+    abstract public function Run(&$a_param, $a_paramRef);
 
     /**
      * Accesseur public en lecture sur les champs privés
-     * @param [string] $a_name, le nom du champ à lire
-     * @return [object, null] la valeur du champ ou null en cas d'exception
+     * @param string $a_name, le nom du champ à lire
+     * @return object la valeur du champ
      * @throws Exception : méthode indéfinie
      */
     public function __get($a_name)

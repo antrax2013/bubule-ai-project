@@ -1,15 +1,21 @@
 <?php
-
+/**
+ * Classe abstraite ABesoin
+ * @class classe définissant le concept de besoin
+ * @date 03/08/2012
+ * @autor Cyril Cophignon
+ */
 abstract class ABesoin
 {
     /**
-     * Nom de l'action
-     * @bool string
+     * Booléen pour savoir si l'action est active
+     * @var bool
      */
     protected $_actif;
 
     /**
      * Constructeur par défaut
+     * @param bool $a_actif, permet de renseigner l'état du champ $_actif à la construction. A false par défaut.
      */
     public function __construct($a_actif = false)
     {
@@ -17,17 +23,25 @@ abstract class ABesoin
     }
 
     /**
-     * Méthode vérifiant les propriétés passées en paramètres
+     * Méthode abstraite gérant l'activation/désactivations en fonction de l'état des paramètres
+     * @param object $a_param parametre
+     * @param object $a_paramRef parametre de référence
+     * @return bool renvoi true si le besoin est actif ou false
      */
-    abstract public function Check($a_energie, $a_energieMax);
+    abstract public function Check($a_param, $a_paramRef);
 
+    /**
+     * Méthode permettant d'activer le besoin
+     * passe $_active à true
+     */
     protected function Activer()
     {
         $this->_actif = true;
     }
 
     /**
-     * Méthode d'execution de l'action
+     * Méthode permettant de désactiver le besoin
+     * passe $_active à false
      */
     protected function Assouvi()
     {
@@ -37,8 +51,8 @@ abstract class ABesoin
 
     /**
      * Accesseur public en lecture sur les champs privés
-     * @param [string] $a_name, le nom du champ à lire
-     * @return [object, null] la valeur du champ ou null en cas d'exception
+     * @param string $a_name, le nom du champ à lire
+     * @return object la valeur du champ
      * @throws Exception : méthode indéfinie
      */
     public function __get($a_name)
