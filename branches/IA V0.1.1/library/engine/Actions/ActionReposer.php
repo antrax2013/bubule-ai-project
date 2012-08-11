@@ -23,20 +23,11 @@ class ActionReposer extends AAction
 
     /**
      * Méthode abstraite permettant l'execution de l'action
-     * @param &int $a_param parametre de la méthode passé par référence
-     * @param int $a_paramRef parametre de référence qui sera comparé à $_param
+     * @param ProprieteBornee &$a_propriete propriete de l'action passée par référence
      */
-    public function Run(&$a_energie, $a_energieMax)
+    public function Run(&$a_propriete)
     {
-        if($a_energie < $a_energieMax)
-        {
-            $a_energie += 1;
-        }
-
-        if($a_energie == $a_energieMax)
-        {
-            $this->_actif = false;
-        }
+        $a_propriete->Up();
     }
 };
 ?>
