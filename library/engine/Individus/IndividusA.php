@@ -15,69 +15,30 @@ class IndividusA
     protected $_name;
 
     /**
-     * Niveau d'énergie de l'individus
-     * @var int
+     * Tableau contenant les besoins
+     * @var AbastractBesoin[]
      */
-    protected $_energie;
+    protected $_besoins;
 
-    /**
-     * Niveau d'énergie maximum de l'individus
-     * @var int
-     */
-    protected $_energieMax;
-
-    /**
-     * Tableau contenant les actions
-     * @var AbastractAction[]
-     */
-    protected  $_actions;
-
-    /**
-     * Tableau contenant les états
-     * @var AbastractEtat[]
-     */
-    protected $_etats;
-
-    /**
-     * Booléen pour savoir si l'individu est correctement formatté
-     * @var bool
-     */
-    protected $_ready;
 
     /**
      * Constructeur par défaut
      * @param string $a_name nom de l'invividus
-     * @param int $a_energieMax energie maximum dont dispose l'individu, minimum 1. 5 par défaut
      */
-    public function __construct($a_name, $a_energieMax=5)
+    public function __construct($a_name)
     {
-        if($a_energieMax < 1) $a_energieMax = 1;
-        $this->_energie = $this->_energieMax = $a_energieMax;
-        $this->_etats = array();
-        $this->_actions = array();
+        $this->_besoins = array();
         $this->_name = $a_name;
         $this->_ready = false;
     }
 
     /**
-     * Ajouter une action
-     * @param AAction $a_action, l'action à ajouter
-     */
-    public function AddAction(AAction $a_action)
-    {
-       Array_Push($this->_actions, $a_action);
-
-        try { $this->EstPret(); }
-        catch(Exception $e) { }
-    }
-
-    /**
      * Ajouter un besoin
-     * @param AEtat $a_etat, l'action à ajouter
+     * @param ABesoin $a_besoin, le besoin à ajouter
      */
-    public function AddBesoin(AEtat $a_etat)
+    public function AddBesoin(ABesoin $a_besoin)
     {
-        Array_Push($this->_etats, $a_etat);
+       Array_Push($this->_besoins, $a_besoin);
 
         try { $this->EstPret(); }
         catch(Exception $e) { }
@@ -92,20 +53,12 @@ class IndividusA
     {
         //Initialisation des variables
         $this->_ready = true;
-        $nb_etats = count($this->_etats);
-        $nb_actions = count($this->_actions);
+        $nb_besoins = count($this->_besoins);
 
-
-        if($nb_etats != $nb_actions)
+        if($nb_besoins <= 0)
         {
             $this->_ready = false;
-            throw new Exception($this->_name.": Nombre d'états différent du nombre d'actions:".$nb_etats." - ".$nb_actions);
-        }
-
-        if($nb_etats == 0)
-        {
-            $this->_ready = false;
-            throw new Exception($this->_name.": Aucun besoin n'est défini.");
+            throw new Exception($this->_name.": Aucun besoin n'est défini");
         }
         return $this->_ready;
     }
@@ -118,18 +71,10 @@ class IndividusA
     {
         if(!$this->_ready) return null;
 
-        $nb = count($this->_etats);
-
-        for($i=0; $i < $nb ;$i++)
+        foreach($this->_besoins as $besoin)
         {
-            //On vérifie l'état du besoin.
-            if($this->_etats[$i]->Check($this->_energie, $this->_energieMax))
-            {
-                //On execute l'action
-                $this->_actions[$i]->Run($this->_energie, $this->_energieMax);
-                //Si le besoin est encore actif, on s'arréte sinon on passe au besoin suivant
-                if($this->_etats[$i]->actif) return true;
-            }
+            //On vérifie l'état du besoin et on execute l'action si necessaire.
+            if($besoin->Run()) return true;
         }
         return false;
 

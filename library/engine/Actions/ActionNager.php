@@ -23,21 +23,11 @@ class ActionNager extends AAction
 
     /**
      * Méthode abstraite permettant l'execution de l'action
-     * @param &int $a_param parametre de la méthode passé par référence
-     * @param int $a_paramRef parametre de référence qui sera comparé à $_param
+     * @param APropiete &$a_propriete propriete de l'action passée par référence
      */
-    public function Run(&$a_param, $a_paramRef)
+    public function Run(&$a_propriete)
     {
-        //Je peux nager dès lors qu'il me reste de l'ernergie
-        if($a_param > 0)
-        {
-            $a_param -= 1;
-        }
-        //J'ai plus d'energie je ne peux plus nager
-        if($a_param == 0)
-        {
-            $this->_actif = false;
-        }
+        $a_propriete->Down();
     }
 };
 ?>

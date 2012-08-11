@@ -28,11 +28,10 @@ abstract class AAction
     }
 
     /**
-     * Méthode abstraite permettant l'execution de l'action
-     * @param &object $a_param parametre de la méthode passé par référence
-     * @param object $a_paramRef parametre de référence qui sera comparé à $_param
+     * Méthode abstraite permettant l'éxecution de l'action
+     * @param APropiete &$a_propriete propriete de l'action passée par référence
      */
-    abstract public function Run(&$a_param, $a_paramRef);
+    abstract public function Run(&$a_propriete);
 
     /**
      * Accesseur public en lecture sur les champs privés

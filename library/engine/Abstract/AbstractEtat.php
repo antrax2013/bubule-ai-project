@@ -1,5 +1,4 @@
 <?php
-    require_once "AbastractPropriete.php";
 /**
  * Classe abstraite AEtat
  * @class classe définissant le concept d'état
@@ -27,7 +26,7 @@ abstract class AEtat
     /**
      * Méthode abstraite gérant l'activation/désactivations en fonction de l'état des paramètres
      * @param APropriete $a_propriete la propriété à vérifier
-     * @return bool renvoi true si le besoin est actif ou false
+     * @return bool true si la propriété est dans un état compatible avec le déclenchement de l'action ou false sinon
      */
     abstract public function Check($a_propriete);
 

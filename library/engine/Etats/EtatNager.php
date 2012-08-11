@@ -19,13 +19,13 @@ class EtatNager extends AEtat
      */
     public function Check($a_propriete)
     {
-        if($a_propriete->etat == true && !$this->actif)
+        if($a_propriete->etat === true && !$this->actif)
         {
             $this->Activer();
             return true;
         }
 
-        if($a_propriete->etat == false && $this->actif)
+        if($a_propriete->etat === false && $this->actif)
         {
             $this->Desactiver();
             return false;

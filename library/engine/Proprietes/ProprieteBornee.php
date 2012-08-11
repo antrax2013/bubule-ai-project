@@ -34,29 +34,48 @@ class ProprieteBornee extends APropriete
      */
     protected $_pasDown;
 
-
     /**
-     * Méthode faisaint croitre la valeur de la propriété
-     * @param bool $a_avecControl, option pour désactiver le control de l'état de la propriété
+     * Constructeur paramétré
+     * @param $a_val
+     * @param $a_min
+     * @param $a_max
+     * @param $a_pasUp
+     * @param $a_pasDown
      */
-    protected function Up($a_avecControl=true)
+    public function __construct($a_val, $a_min, $a_max, $a_pasUp, $a_pasDown)
     {
-        if($a_avecControl && $this->Etat() != true  || !$a_avecControl)
-        {
-            $this->valeur += $this->_pasUp;
-        }
+        $this->valeur = $a_val;
+        $this->min = $a_min;
+        $this->max = $a_max;
+        $this->pasUp = $a_pasUp;
+        $this->pasDown = $a_pasDown;
+        $this->Etat();
     }
 
     /**
      * Méthode faisaint croitre la valeur de la propriété
      * @param bool $a_avecControl, option pour désactiver le control de l'état de la propriété
      */
-    protected function Down($a_avecControl=true)
+    public function Up($a_avecControl=true)
     {
-        if($a_avecControl && $this->Etat() != false || !$a_avecControl)
+        if($a_avecControl == true && $this->Etat() !== true  || !$a_avecControl)
+        {
+            $this->valeur += $this->_pasUp;
+        }
+        echo "propriete:".$this->valeur;
+    }
+
+    /**
+     * Méthode faisaint croitre la valeur de la propriété
+     * @param bool $a_avecControl, option pour désactiver le control de l'état de la propriété
+     */
+    public function Down($a_avecControl=true)
+    {
+        if($a_avecControl == true && $this->Etat() !== false || !$a_avecControl)
         {
             $this->valeur -= $this->_pasDown;
         }
+        echo "propriete:".$this->valeur;
     }
 
     /**
@@ -65,12 +84,12 @@ class ProprieteBornee extends APropriete
      */
     protected function Etat()
     {
-        if($this->valeur == $this->_max)
+        if($this->valeur == $this->max)
         {
             return true;
         }
 
-        else if($this->valeur == $this->_min)
+        else if($this->valeur == $this->min)
         {
            return false;
         }
@@ -93,9 +112,9 @@ class ProprieteBornee extends APropriete
             case "min":
                 return $this->_min;
             case "pasUp":
-                return $this->_min;
+                return $this->_pasUp;
             case "pasDown":
-                return $this->_min;
+                return $this->_pasDown;
             default:
                 return parent::__get($a_name);
         }
@@ -114,13 +133,13 @@ class ProprieteBornee extends APropriete
         switch($a_name)
         {
             case "max":
-                if($this->_min<= $a_val)
+                if((!empty($this->_min) || $this->_min==0) && $this->_min<= $a_val)
                 {
                     $this->max = $a_val;
                 }
                 return $this->max;
             case "min":
-                if($this->_max>= $a_val)
+                if((!empty($this->_max) || $this->_max==0) && $this->_max>= $a_val)
                 {
                     $this->min = $a_val;
                 }
@@ -132,7 +151,7 @@ class ProprieteBornee extends APropriete
                 }
                 return $this->_pasUp;
             case "pasDown":
-                if($this->_pasDown>= $a_val)
+                if($this->_pasDown>= 0)
                 {
                     $this->_pasDown = $a_val;
                 }
