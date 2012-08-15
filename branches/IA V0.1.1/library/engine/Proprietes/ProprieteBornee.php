@@ -42,14 +42,30 @@ class ProprieteBornee extends APropriete
      * @param $a_pasUp
      * @param $a_pasDown
      */
-    public function __construct($a_val, $a_min, $a_max, $a_pasUp, $a_pasDown)
+    public function __construct($a_val=0, $a_min=0, $a_max=1, $a_pasUp=1, $a_pasDown=1)
     {
         $this->valeur = $a_val;
-        $this->min = $a_min;
+        $this->_min = $a_min;
         $this->max = $a_max;
         $this->pasUp = $a_pasUp;
         $this->pasDown = $a_pasDown;
+        $this->Recadrer();
         $this->Etat();
+    }
+
+    /**
+     * Méthode recadrant la valeur entre les bornes
+     */
+    private function Recadrer()
+    {
+        if($this->valeur > $this->max)
+        {
+            $this->valeur = $this->max;
+        }
+        else if($this->valeur < $this->min)
+        {
+            $this->valeur = $this->min;
+        }
     }
 
     /**
@@ -62,7 +78,6 @@ class ProprieteBornee extends APropriete
         {
             $this->valeur += $this->_pasUp;
         }
-        echo "propriete:".$this->valeur;
     }
 
     /**
@@ -75,7 +90,6 @@ class ProprieteBornee extends APropriete
         {
             $this->valeur -= $this->_pasDown;
         }
-        echo "propriete:".$this->valeur;
     }
 
     /**
@@ -133,15 +147,27 @@ class ProprieteBornee extends APropriete
         switch($a_name)
         {
             case "max":
-                if((!empty($this->_min) || $this->_min==0) && $this->_min<= $a_val)
+                if((!empty($this->_min) || $this->_min==0))
                 {
-                    $this->max = $a_val;
+                    //Vérification du paramétrage
+                    if($this->min >= $a_val)
+                    {
+                        throw new Exception('La propriete _min('.$this->_min.') a une valeur supérieure ou égale à celle de _max('.$a_val.')');
+                    }
+                    $this->_max = $a_val;
+                    $this->Recadrer();
                 }
                 return $this->max;
             case "min":
-                if((!empty($this->_max) || $this->_max==0) && $this->_max>= $a_val)
+                if((!empty($this->_max) || $this->_max==0))
                 {
-                    $this->min = $a_val;
+                    //Vérification du paramétrage
+                    if($this->_max <= $a_val)
+                    {
+                        throw new Exception('La propriete _min('.$a_val.') a une valeur supérieure ou égale à celle de _max('.$this->_max.')');
+                    }
+                    $this->_min = $a_val;
+                    $this->Recadrer();
                 }
                 return $this->min;
             case "pasUp":

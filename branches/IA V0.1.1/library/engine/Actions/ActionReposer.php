@@ -18,6 +18,7 @@ class ActionReposer extends AAction
      */
     public function __construct()
     {
+        parent::__construct();
         $this->name = "Reposer";
     }
 
@@ -27,6 +28,10 @@ class ActionReposer extends AAction
      */
     public function Run(&$a_propriete)
     {
+        if(!($a_propriete instanceof APropriete))
+        {
+            throw new Exception('Le pramétre $a_propriete (type: '.get_class ($a_propriete).') n\'est pas une instance de la classe APropriete.');
+        }
         $a_propriete->Up();
     }
 };

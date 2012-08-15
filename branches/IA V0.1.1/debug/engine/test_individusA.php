@@ -19,21 +19,18 @@ $path_etats = $path_library.'Etats/';
 $path_individus = $path_library.'Individus/';
 $path_propriete = $path_library.'Proprietes/';
 
-//Inclusions
+//Initialisation
 require_once "test_tools.php";
 Init($root); //modification de l'include_path
 
+
+//Classes
 require_once $path_individus."IndividusA.php";
-require_once $path_abstract."AbstractAction.php";
-require_once $path_abstract."AbstractPropriete.php";
-require_once $path_abstract."AbstractEtat.php";
-require_once $path_abstract."AbstractBesoin.php";
-
-
 require_once $path_propriete."ProprieteBornee.php";
 require_once $path_actions."ActionNager.php";
 require_once $path_actions."ActionReposer.php";
-require_once $path_besoins."BesoinStd.php";
+//require_once $path_besoins."Besoin.php";
+require_once $path_besoins."BesoinPP.php";
 require_once $path_etats."EtatNager.php";
 require_once $path_etats."EtatReposer.php";
 
@@ -42,23 +39,24 @@ $bubule = new IndividusA("Bubule");
 
 $energie = new ProprieteBornee(5, 0, 5, 1, 1);
 
-$besoin1 = new BesoinStd(new ActionNager(), $energie, new EtatNager(true));
-$besoin2 = new BesoinStd(new ActionReposer(), $energie, new EtatReposer());
+var_dump($energie instanceof APropriete);
+
+$nager = new BesoinPP(new ActionNager(), $energie, new EtatNager(true));
+$reposer = new BesoinPP(new ActionReposer(), $energie, new EtatReposer());
 
 
-$bubule->AddBesoin($besoin1);
-$bubule->AddBesoin($besoin2);
+$bubule->AddBesoin($nager);
+$bubule->AddBesoin($reposer);
 $bubule->EstPret();
-$duree = 12;
 
 /*$bouboul = new IndividusA("Bouboul", 0);
 $bouboul->EstPret();*/
 
-
 //Lancement de la simulation
+$duree = 12;
 while(($duree--) > 0)
 {
-    echo "************************<br>Tour $duree<br>";
+    echo "************************<br>Tour n° $duree<br>";
     $bubule->Run();
     //var_export($bubule);
     echo "<br><br>";
