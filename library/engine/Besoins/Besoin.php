@@ -1,11 +1,11 @@
 <?php
 /**
- * Classe abstraite ABesoin
+ * Classe Besoin
  * @class classe définissant le concept de besoin
  * @date 06/08/2012
  * @autor Cyril Cophignon
  */
-abstract class ABesoin
+class Besoin
 {
     /**
      * Une propriete
@@ -31,9 +31,14 @@ abstract class ABesoin
      * @param APropiete $a_propriete
      * @param AEtat $a_etat
      */
-    public function __construct(AAction $a_action, APropiete $a_propriete, AEtat $a_etat)
+    public function __construct(AAction $a_action, $a_propriete, AEtat $a_etat)
     {
         $this->_action = $a_action;
+        if(!($a_propriete instanceof APropriete))
+        {
+            throw new Exception('Le pramétre $a_propriete (type: '.get_class ($a_propriete).') n\'est pas une instance de la classe APropriete.');
+        }
+
         $this->_propriete = $a_propriete;
         $this->_etat = $a_etat;
     }

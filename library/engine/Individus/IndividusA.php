@@ -20,6 +20,18 @@ class IndividusA
      */
     protected $_besoins;
 
+    /**
+     * Nombre de besoins de l'individus
+     * @var int
+     */
+    protected $_nbBesoins;
+
+    /**
+     * Booleen pour signifier le paramétrage correct de l'individus
+     * @var bool
+     */
+    protected $_ready;
+
 
     /**
      * Constructeur par défaut
@@ -29,6 +41,7 @@ class IndividusA
     {
         $this->_besoins = array();
         $this->_name = $a_name;
+        $this->_nbBesoins = 0;
         $this->_ready = false;
     }
 
@@ -36,9 +49,10 @@ class IndividusA
      * Ajouter un besoin
      * @param ABesoin $a_besoin, le besoin à ajouter
      */
-    public function AddBesoin(ABesoin $a_besoin)
+    public function AddBesoin(Besoin $a_besoin)
     {
-       Array_Push($this->_besoins, $a_besoin);
+        Array_Push($this->_besoins, $a_besoin);
+        $this->_nbBesoins++;
 
         try { $this->EstPret(); }
         catch(Exception $e) { }
@@ -53,9 +67,8 @@ class IndividusA
     {
         //Initialisation des variables
         $this->_ready = true;
-        $nb_besoins = count($this->_besoins);
 
-        if($nb_besoins <= 0)
+        if($this->_nbBesoins <= 0)
         {
             $this->_ready = false;
             throw new Exception($this->_name.": Aucun besoin n'est défini");
@@ -78,6 +91,23 @@ class IndividusA
         }
         return false;
 
+    }
+
+    /**
+     * Accesseur public en lecture sur les champs privés
+     * @param string $a_name, le nom du champ à lire
+     * @return object la valeur du champ
+     * @throws Exception : méthode indéfinie
+     */
+    public function __get($a_name)
+    {
+        switch($a_name)
+        {
+            case "count":
+                return $this->_nbBesoins;
+            default:
+                throw new Exception("La propriete \"$a_name\" est indefinie.");
+        }
     }
 };
 ?>
