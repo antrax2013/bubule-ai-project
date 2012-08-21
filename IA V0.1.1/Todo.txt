@@ -1,1 +1,0 @@
-Définir le concepte de besoin en tant que triplet action, etat et propriete
