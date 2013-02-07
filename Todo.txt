@@ -1,1 +1,2 @@
-Définir le concepte de besoin en tant que triplet action, etat et propriete
+Dï¿½finir le concepte de cycle de besoin
+-> dï¿½finir une interface besoin

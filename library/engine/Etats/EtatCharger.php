@@ -3,14 +3,14 @@
 require_once "engine/Abstract/AbstractEtat.php";
 
 /**
- * Classe EtatReposer, hérite de la classe abstraite AEtat
- * Dans cette version de base EtatReposer = régénération de sa propriete lorsque celle-ci est à faux.
+ * Classe EtatCharger, hérite de la classe abstraite AEtat
+ * Dans cette version de base EtatCharger = régénération de sa propriete lorsque celle-ci est à faux.
  * @class classe définissant l'état de se reposer
  * @date 03/08/2012
  * @autor Cyril Cophignon
  * @extends AEtat
  */
-class EtatReposer extends AEtat
+class EtatCharger extends AEtat
 {
     /**
      * Méthode gérant l'activation/désactivations en fonction de l'état des paramètres

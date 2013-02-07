@@ -27,12 +27,12 @@ Init($root); //modification de l'include_path
 //Classes
 require_once $path_individus."IndividusA.php";
 require_once $path_propriete."ProprieteBornee.php";
-require_once $path_actions."ActionNager.php";
-require_once $path_actions."ActionReposer.php";
+require_once $path_actions."ActionDecharger.php";
+require_once $path_actions."ActionCharger.php";
 //require_once $path_besoins."Besoin.php";
 require_once $path_besoins."BesoinPP.php";
-require_once $path_etats."EtatNager.php";
-require_once $path_etats."EtatReposer.php";
+require_once $path_etats."EtatDecharger.php";
+require_once $path_etats."EtatCharger.php";
 
 //Initialisation des variables
 $bubule = new IndividusA("Bubule");
@@ -41,8 +41,8 @@ $energie = new ProprieteBornee(5, 0, 5, 1, 1);
 
 var_dump($energie instanceof APropriete);
 
-$nager = new BesoinPP(new ActionNager(), $energie, new EtatNager(true));
-$reposer = new BesoinPP(new ActionReposer(), $energie, new EtatReposer());
+$nager = new BesoinPP(new ActionDecharger(), $energie, new EtatDecharger(true));
+$reposer = new BesoinPP(new ActionCharger(), $energie, new EtatCharger());
 
 
 $bubule->AddBesoin($nager);

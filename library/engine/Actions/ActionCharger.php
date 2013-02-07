@@ -3,15 +3,14 @@
 
 
 /**
- * Classe ActionNager, hérite de la classe abstraite AAction
- * Dans cette version de base nager consomme de l'ernergie.
- * Pas de notion de déplacement ici.
- * @class classe définissant l'action de nager
+ * Classe ActionCharger, hérite de la classe abstraite AAction
+ * Action augmentant "l'énergie"
+ * @class classe définissant l'action ressoursant "l'énergie"
  * @date 03/08/2012
  * @autor Cyril Cophignon
  * @extends AAction
  */
-class ActionNager extends AAction
+class ActionCharger extends AAction
 {
     /**
      * Constructeur par défaut
@@ -19,12 +18,12 @@ class ActionNager extends AAction
     public function __construct()
     {
         parent::__construct();
-        $this->name = "Nager";
+        $this->name = "Charger";
     }
 
     /**
      * Méthode abstraite permettant l'execution de l'action
-     * @param APropiete &$a_propriete propriete de l'action passée par référence
+     * @param ProprieteBornee &$a_propriete propriete de l'action passée par référence
      */
     public function Run(&$a_propriete)
     {
@@ -32,7 +31,7 @@ class ActionNager extends AAction
         {
             throw new Exception('Le pramétre $a_propriete (type: '.get_class ($a_propriete).') n\'est pas une instance de la classe APropriete.');
         }
-        $a_propriete->Down();
+        $a_propriete->Up();
     }
 };
 ?>
