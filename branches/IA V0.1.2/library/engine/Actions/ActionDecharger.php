@@ -3,15 +3,14 @@
 
 
 /**
- * Classe ActionReposer, hérite de la classe abstraite AAction
- * Dans cette verion reposer est l'action antagoniste de l'action nager.
- * Aucun lien n'est fait entre les deux actions
- * @class classe définissant l'action de se reposer.
+ * Classe ActionDecharger, hérite de la classe abstraite AAction
+ * Action consommant de "l'énergie" et n'est possible que s'il reste de l'energie à consommer
+ * @class classe définissant l'action consommatrice "d'énergie"
  * @date 03/08/2012
  * @autor Cyril Cophignon
  * @extends AAction
  */
-class ActionReposer extends AAction
+class ActionDecharger extends AAction
 {
     /**
      * Constructeur par défaut
@@ -19,12 +18,12 @@ class ActionReposer extends AAction
     public function __construct()
     {
         parent::__construct();
-        $this->name = "Reposer";
+        $this->name = "Decharger";
     }
 
     /**
      * Méthode abstraite permettant l'execution de l'action
-     * @param ProprieteBornee &$a_propriete propriete de l'action passée par référence
+     * @param APropiete &$a_propriete propriete de l'action passée par référence
      */
     public function Run(&$a_propriete)
     {
@@ -32,7 +31,7 @@ class ActionReposer extends AAction
         {
             throw new Exception('Le pramétre $a_propriete (type: '.get_class ($a_propriete).') n\'est pas une instance de la classe APropriete.');
         }
-        $a_propriete->Up();
+        $a_propriete->Down();
     }
 };
 ?>

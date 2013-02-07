@@ -2,14 +2,14 @@
     require_once "engine/Abstract/AbstractEtat.php";
 
 /**
- * Classe EtatNager, hérite de la classe abstraite AEtat
- * Dans cette version de base EtatNager = consommation de sa propriete dès lors que celle-ci n'est pas à faux.
+ * Classe EtatDecharger, hérite de la classe abstraite AEtat
+ * Dans cette version de base EtatDecharger = consommation de sa propriete dès lors que celle-ci n'est pas à faux.
  * @class classe définissant l'état de nager
  * @date 03/08/2012
  * @autor Cyril Cophignon
  * @extends AEtat
  */
-class EtatNager extends AEtat
+class EtatDecharger extends AEtat
 {
 
     /**
