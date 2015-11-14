@@ -1,0 +1,1 @@
+project about artifical intelligence from scracht.
